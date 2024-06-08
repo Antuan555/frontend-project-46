@@ -53,5 +53,5 @@ program
   .option('-f, --format [type]', 'output format')
   .parse(process.argv);
 
-const { args } = program;
-genDiff(args);
+const { args } = program
+genDiff(args)

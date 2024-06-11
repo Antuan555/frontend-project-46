@@ -1,0 +1,40 @@
+# .github/workflows/codeclimate.yml
+
+name: CodeClimate Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  # Установите нужную версию Node.js
+
+    - name: Install dependencies
+      run: npm install  # Устанавливает зависимости
+
+    - name: Run tests with coverage
+      run: npm run test -- --coverage # Генерация отчета о покрытии тестов
+
+    - name: Upload coverage to CodeClimate
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}  # Убедитесь, что переменная сохранена в секретах репозитория
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+        ./cc-test-reporter before-build
+        ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.json coverage/lcov.info
+        ./cc-test-reporter upload-coverage -i coverage/codeclimate.json

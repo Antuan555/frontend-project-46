@@ -1,5 +1,5 @@
 test:
-	node Js/Index.js
+	npm test
 install:
 	npm ci
 lint:

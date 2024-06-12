@@ -1,13 +1,20 @@
 import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
+import yaml from 'js-yaml';
 
 const genDiff = (file1, file2) => {
   const args = [file1, file2];
   const obj = args.map((e) => {
     const pathFile = path.resolve(process.cwd(), e);
     const data = fs.readFileSync(pathFile);
-    const parse = JSON.parse(data);
+    let parse;
+    if (file1.includes('.json')) {
+      parse = JSON.parse(data);
+    } else {
+      parse = yaml.load(data);
+    }
+    // const parse = JSON.parse(data);
     return parse;
   });
   const keysFile1 = Object.keys(obj[0]);

@@ -7,6 +7,8 @@ export default (diff, format) => {
       return stylish(diff);
     case 'plain':
       return buildPlain(diff);
+    case 'json':
+      return JSON.stringify(diff);
     default:
       throw new Error('invalid data');
   }

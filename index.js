@@ -1,8 +1,9 @@
-import path from "path";
+import path from 'path';
 import fs from 'fs';
-import _ from "lodash";
+import _ from 'lodash';
+
 const genDiff = (file1, file2) => {
-	const args = [file1, file2]
+  const args = [file1, file2];
   const obj = args.map((e) => {
     const pathFile = path.resolve(process.cwd(), e);
     const data = fs.readFileSync(pathFile);
@@ -14,7 +15,7 @@ const genDiff = (file1, file2) => {
     if (Object.hasOwn(obj[1], e) && obj[0][e] === obj[1][e]) {
       return e;
     }
-		return false;
+    return false;
   });
   const mappingArr = filterArr.map((e) => `  ${e}`);
   const filterArr2 = Object.entries(obj[0]).filter((e) => `  ${e[0]}` === mappingArr[0]);
@@ -38,8 +39,8 @@ const genDiff = (file1, file2) => {
   });
   const sort = _.sortBy(resArr, (el) => el[0][2]);
   const joinArr = sort.map((e) => `  ${e.join(': ')}`);
-	return `{
+  return `{
 ${joinArr.join('\n')}
 }`;
 };
-export default genDiff
+export default genDiff;

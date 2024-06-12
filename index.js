@@ -13,8 +13,8 @@ const parseFile = (file) => {
   }
   if (file.includes('.yaml') || file.includes('.yml')) {
     return yaml.load(content);
-	}
-	const extName = path.extname(pathResolve)
+  }
+  const extName = path.extname(pathResolve);
   throw new Error(`Unsupported file extension: ${extName}`);
 };
 

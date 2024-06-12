@@ -7,15 +7,15 @@ import formatter from './formaters/formatter.js';
 const parseFile = (file) => {
   const pathResolve = path.resolve('files', file);
   const content = fs.readFileSync(pathResolve, 'utf-8');
-  let parse;
+
   if (file.includes('.json')) {
-    parse = JSON.parse(content);
-  } else if (file.includes('.yaml') || file.includes('.yml')) {
-    parse = yaml.load(content);
-  } else {
-    throw new Error(`Unsupported file extension: ${content}`);
+    return JSON.parse(content);
   }
-  return parse;
+  if (file.includes('.yaml') || file.includes('.yml')) {
+    return yaml.load(content);
+	}
+	const extName = path.extname(pathResolve)
+  throw new Error(`Unsupported file extension: ${extName}`);
 };
 
 const genDiff = (filepath1, filepath2, format = 'stylish') => {

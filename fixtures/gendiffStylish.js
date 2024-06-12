@@ -1,9 +1,4 @@
-import genDiff from '../index.js';
-import stylish from '../stylish.js';
-
-test('gendiff1', () => {
-  const diff = genDiff('file3.json', 'file4.json');
-  expect(stylish(diff)).toEqual(`{
+const stylish = `{
     common: {
       + follow: false
         setting1: Value 1
@@ -46,5 +41,5 @@ test('gendiff1', () => {
         }
         fee: 100500
     }
-}`);
-});
+}`;
+export default stylish;

@@ -11,12 +11,12 @@ const genDiff = (args) => {
     const parse = JSON.parse(data);
     return parse;
   });
-  const keysFile1 = Object.keys(obj[0])
+  const keysFile1 = Object.keys(obj[0]);
   const filterArr = keysFile1.filter((e) => {
     if (Object.hasOwn(obj[1], e) && obj[0][e] === obj[1][e]) {
       return e;
     }
-    return false
+    return false;
   });
   const mappingArr = filterArr.map((e) => `  ${e}`);
   const filterArr2 = Object.entries(obj[0]).filter((e) => `  ${e[0]}` === mappingArr[0]);
@@ -53,5 +53,5 @@ program
   .option('-f, --format [type]', 'output format')
   .parse(process.argv);
 
-const { args } = program
-genDiff(args)
+const { args } = program;
+genDiff(args);
